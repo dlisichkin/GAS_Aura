@@ -1,5 +1,5 @@
 // Copyright some company name
 
 
-#include "Character/AuraEnenmy.h"
+#include "Character/AuraEnemy.h"
 
