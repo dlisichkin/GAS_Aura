@@ -31,12 +31,21 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 		AuraAttributeSet->GetMaxManaAttribute()).AddUObject(this, &UOverlayWidgetController::MaxManaChanged);
 
 	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(
-		[](const FGameplayTagContainer& AssetTags)
+		[this](const FGameplayTagContainer& AssetTags)
 		{
 			for (const FGameplayTag& Tag : AssetTags)
 			{
-				const FString Msg = FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString());
-				GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Blue, Msg);
+				// For example, Tag = Message.HealthPotion
+				
+				//Determine if TagToCheck is valid and exactly matches this tag "Message.HealthPotion".MatchesTagExact("Message") will return False If TagToCheck is not Valid it will always return False
+				FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
+				if (Tag.MatchesTag(MessageTag))
+				{
+					const FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
+					MessageWidgetRowDelegate.Broadcast(*Row);
+				}
+				/*const FString Msg = FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString());
+				*GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Blue, Msg);*/
 			}
 		}
 	);
