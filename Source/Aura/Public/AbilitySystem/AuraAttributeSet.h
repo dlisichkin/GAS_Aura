@@ -13,6 +13,7 @@
 	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+
 USTRUCT()
 struct FEffectProperties
 {
@@ -46,6 +47,12 @@ struct FEffectProperties
 	AController* TargetController = nullptr;
 };
 
+//typedef is specific for FGameplayAttribute() signature, but TStaticFunctionPtr is generic to any signature chosen
+//typedef TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr FAttributeFunctionPtr;
+template<class T>
+using TStaticFunctionPtr = typename TBaseStaticDelegateInstance<T, FDefaultDelegateUserPolicy>::FFuncPtr;
+
+
 /**
  * 
  */
@@ -62,6 +69,8 @@ public:
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
+
+	TMap<FGameplayTag, TStaticFunctionPtr<FGameplayAttribute()>> TagsToAttributes;
 
 	/*
 	 * Secondary Attributes
