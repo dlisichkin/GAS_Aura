@@ -13,6 +13,7 @@ class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
 class IEnemyInterface;
+class UAuraAbilitySystemComponent;
 
 /**
  * 
@@ -43,10 +44,15 @@ private:
 	TScriptInterface<IEnemyInterface> LastActor;
 	TScriptInterface<IEnemyInterface> ThisActor;
 
-	static void AbilityInputTagPressed(FGameplayTag InputTag);
-	static void AbilityInputTagReleased(FGameplayTag InputTag);
-	static void AbilityInputTagHeld(FGameplayTag InputTag);
+	void AbilityInputTagPressed(FGameplayTag InputTag);
+	void AbilityInputTagReleased(FGameplayTag InputTag);
+	void AbilityInputTagHeld(FGameplayTag InputTag);
 
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UAuraInputConfig> InputConfig;
+
+	UPROPERTY()
+	TObjectPtr<UAuraAbilitySystemComponent> AuraAbilitySystemComponent;
+
+	UAuraAbilitySystemComponent* GetAuraASC();
 };
