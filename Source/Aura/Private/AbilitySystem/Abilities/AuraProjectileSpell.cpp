@@ -4,6 +4,7 @@
 #include "AbilitySystem/Abilities/AuraProjectileSpell.h"
 
 #include "Actor/AuraProjectile.h"
+#include "GameFramework/PlayerState.h"
 #include "Interaction/CombatInterface.h"
 
 
@@ -24,11 +25,12 @@ void UAuraProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Hand
 		FTransform SpawnTransform;
 		SpawnTransform.SetLocation(SocketLocation);
 		//TODO: Set the Projectile Rotation
+
 		AAuraProjectile* Projectile = GetWorld()->SpawnActorDeferred<AAuraProjectile>(
 			ProjectileClass,
 			SpawnTransform,
 			GetOwningActorFromActorInfo(),
-			Cast<APawn>(GetOwningActorFromActorInfo()),
+			Cast<APawn>(GetAvatarActorFromActorInfo()),
 			ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 
 		//TODO: Give the Projectile a Gameplay Effect Spec for causing Damage.

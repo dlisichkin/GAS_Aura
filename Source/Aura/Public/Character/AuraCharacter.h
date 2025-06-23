@@ -20,6 +20,7 @@ public:
 	virtual void OnRep_PlayerState() override;
 
 	/* Combat Interface */
+	UFUNCTION(BlueprintCallable)
 	virtual int32 GetCharacterLevel() override;
 	/*End Combat Interface */
 
