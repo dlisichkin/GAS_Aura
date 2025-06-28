@@ -40,7 +40,12 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> MoveAction;
 
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> ShiftAction;
+	
 	void Move(const FInputActionValue& InputActionValue);
+	void ShiftPressed() { bShiftPressed = true; };
+	void ShiftReleased() { bShiftPressed = false; };
 
 	void CursorTrace();
 	TScriptInterface<IEnemyInterface> LastActor;
@@ -65,6 +70,7 @@ private:
 	float ShortPressThreshold = 0.5f;
 	bool bAutoRunning = false;
 	bool bTargeting = false;
+	bool bShiftPressed = false;
 
 	UPROPERTY(EditDefaultsOnly)
 	float AutoRunAcceptanceRadius = 50.f;
