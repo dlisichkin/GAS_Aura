@@ -6,3 +6,4 @@
 
 #define CUSTOM_DEPTH_RED 250
 #define PLAYER_STATE_NET_UPDATE_FREQUENCY 100.f
+#define ECC_Projectile ECollisionChannel::ECC_GameTraceChannel1
