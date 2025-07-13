@@ -27,6 +27,9 @@ public:
 		return AttributeSet;
 	}
 
+	UFUNCTION(BlueprintCallable)
+	virtual UAnimMontage* GetHitReactionAnimMontage_Implementation() override;
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -35,6 +38,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	FName WeaponTipSocketName;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TObjectPtr<UAnimMontage> HitReactionAnimMontage = nullptr;
 
 	UFUNCTION(BlueprintCallable)
 	virtual FVector GetCombatSocketLocation() override;
