@@ -31,5 +31,7 @@ public:
 	UAnimMontage* GetHitReactionAnimMontage();
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void UpdateFacingTarget(const FVector& FacingTarget); 
+	void UpdateFacingTarget(const FVector& FacingTarget);
+
+	virtual void Die() = 0;
 };

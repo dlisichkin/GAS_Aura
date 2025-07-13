@@ -8,6 +8,7 @@
 #include "GameFramework/Character.h"
 #include "Net/UnrealNetwork.h"
 #include "AuraGameplayTags.h"
+#include "Character/AuraCharacterBase.h"
 
 
 UAuraAttributeSet::UAuraAttributeSet()
@@ -83,7 +84,7 @@ void UAuraAttributeSet::SetEffectProperties(const struct FGameplayEffectModCallb
 	
 	if (IsValid(EffectProperties.SourceAbilitySystemComponent) &&
 		EffectProperties.SourceAbilitySystemComponent->AbilityActorInfo.IsValid() &&
-			EffectProperties.SourceAbilitySystemComponent->AbilityActorInfo.IsValid())
+			EffectProperties.SourceAbilitySystemComponent->AbilityActorInfo->AvatarActor.IsValid())
 	{
 		EffectProperties.SourceAvatarActor = EffectProperties.SourceAbilitySystemComponent->AbilityActorInfo->AvatarActor.Get();
 		EffectProperties.SourceController = EffectProperties.SourceAbilitySystemComponent->AbilityActorInfo->PlayerController.Get();
@@ -141,6 +142,11 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
 				FGameplayTagContainer TagContainer;
 				TagContainer.AddTag(FAuraGameplayTags::Get().Effects_HitReact);
 				EffectProperties.TargetAbilitySystemComponent->TryActivateAbilitiesByTag(TagContainer);
+			}
+			else
+			{
+				ICombatInterface* CombatInterface = Cast<ICombatInterface>(EffectProperties.TargetAvatarActor);
+				if (CombatInterface) CombatInterface->Die();
 			}
 		}
 	}
