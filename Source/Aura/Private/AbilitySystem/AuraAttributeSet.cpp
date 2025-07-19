@@ -9,6 +9,8 @@
 #include "Net/UnrealNetwork.h"
 #include "AuraGameplayTags.h"
 #include "Character/AuraCharacterBase.h"
+#include "Kismet/GameplayStatics.h"
+#include "Player/AuraPlayerController.h"
 
 
 UAuraAttributeSet::UAuraAttributeSet()
@@ -97,7 +99,7 @@ void UAuraAttributeSet::SetEffectProperties(const struct FGameplayEffectModCallb
 		}
 		if (EffectProperties.SourceController != nullptr)
 		{
-			ACharacter* SourceCharacter = Cast<ACharacter>(EffectProperties.SourceController->GetPawn());
+			EffectProperties.SourceCharacter = Cast<ACharacter>(EffectProperties.SourceController->GetPawn());
 		}
 	}
 
@@ -109,7 +111,6 @@ void UAuraAttributeSet::SetEffectProperties(const struct FGameplayEffectModCallb
 		EffectProperties.TargetCharacter = Cast<ACharacter>(EffectProperties.TargetAvatarActor);
 		const UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(EffectProperties.TargetAvatarActor);
 	}
-	
 }
 
 void UAuraAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData &Data)
@@ -148,6 +149,18 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
 				ICombatInterface* CombatInterface = Cast<ICombatInterface>(EffectProperties.TargetAvatarActor);
 				if (CombatInterface) CombatInterface->Die();
 			}
+			ShowFloatingText(EffectProperties, LocalIncomingDamage);
+		}
+	}
+}
+
+void UAuraAttributeSet::ShowFloatingText(const FEffectProperties& Props, float Damage) const
+{
+ 	if (Props.TargetCharacter != Props.SourceCharacter)
+	{
+		if (AAuraPlayerController* PC = Cast<AAuraPlayerController>(UGameplayStatics::GetPlayerController(Props.SourceCharacter, 0)))
+		{
+			PC->ShowDamageNumber(Damage, Props.TargetCharacter);
 		}
 	}
 }
