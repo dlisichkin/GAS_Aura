@@ -102,14 +102,13 @@ void UAuraAttributeSet::SetEffectProperties(const struct FGameplayEffectModCallb
 			EffectProperties.SourceCharacter = Cast<ACharacter>(EffectProperties.SourceController->GetPawn());
 		}
 	}
-
-	EffectProperties.TargetAbilitySystemComponent = &Data.Target;
+	
 	if (Data.Target.AbilityActorInfo.IsValid() && Data.Target.AbilityActorInfo->AvatarActor.IsValid())
 	{
 		EffectProperties.TargetAvatarActor = Data.Target.AbilityActorInfo->AvatarActor.Get();
 		EffectProperties.TargetController = Data.Target.AbilityActorInfo->PlayerController.Get();
 		EffectProperties.TargetCharacter = Cast<ACharacter>(EffectProperties.TargetAvatarActor);
-		const UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(EffectProperties.TargetAvatarActor);
+		EffectProperties.TargetAbilitySystemComponent = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(EffectProperties.TargetAvatarActor);
 	}
 }
 
