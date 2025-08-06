@@ -1,4 +1,4 @@
-// Copyright some company name
+// Copyright Knit Pixel B.V.
 
 #include "Aura.h"
 #include "Modules/ModuleManager.h"
