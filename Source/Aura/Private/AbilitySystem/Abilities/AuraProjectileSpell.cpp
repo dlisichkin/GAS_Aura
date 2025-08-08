@@ -15,18 +15,6 @@ void UAuraProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Hand
                                            const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
-
-	const bool bHasAuthority = HasAuthority(&ActivationInfo);
-	if (! bHasAuthority) return;
-
-	ICombatInterface* CombatInterface = Cast<ICombatInterface>(GetAvatarActorFromActorInfo());
-	if (CombatInterface)
-	{
-		const FVector SocketLocation = CombatInterface->GetCombatSocketLocation();
-
-		FTransform SpawnTransform;
-		SpawnTransform.SetLocation(SocketLocation);
-	}
 }
 
 void UAuraProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocation)
