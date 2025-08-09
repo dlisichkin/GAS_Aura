@@ -13,7 +13,8 @@
 				"GameplayAbilities",
 				"UMG",
 				"CoreUObject",
-				"EnhancedInput"
+				"EnhancedInput",
+				"AIModule"
 			]
 		}
 	],
@@ -34,8 +35,8 @@
 			"Enabled": true
 		},
 		{
-    		"Name": "Niagara",
-    		"Enabled": true
-  		}
+			"Name": "Niagara",
+			"Enabled": true
+		}
 	]
 }
