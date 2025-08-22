@@ -45,9 +45,8 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TObjectPtr<UAnimMontage> HitReactionAnimMontage = nullptr;
-
-	UFUNCTION(BlueprintCallable)
-	virtual FVector GetCombatSocketLocation() override;
+	
+	virtual FVector GetCombatSocketLocation_Implementation() override;
 
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
