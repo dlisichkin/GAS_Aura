@@ -52,6 +52,11 @@ AActor* AAuraCharacterBase::GetAvatar_Implementation()
 	return this;
 }
 
+TArray<FTaggedMontage> AAuraCharacterBase::GetAttackMontages_Implementation()
+{
+	return AttackMontages;
+}
+
 UAnimMontage* AAuraCharacterBase::GetHitReactionAnimMontage_Implementation()
 {
 	return HitReactionAnimMontage;
